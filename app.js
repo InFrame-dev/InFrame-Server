@@ -4,10 +4,19 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const { swaggerUi, specs } = require('./modules/ swagger');
+var session = require("express-session");
+var MySQLStore = require("express-mysql-session")(session);
+require("dotenv").config();
+
+
 
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var loginRouter = require('./routes/login');
+var signupRouter = require('./routes/signup');
+
+
 
 var app = express();
 app.use(express.urlencoded({ extended: true}));
@@ -33,10 +42,31 @@ sequelize
     console.error(err);
   });
 
+var options = {
+  host: process.env.MYSQL_HOST,
+  port: 3306,
+  user: process.env.MYSQL_USERNAME,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DIALECT,
+};
+
+var sessionStore = new MySQLStore(options);
+
+app.use(
+  session({
+    HttpOnly: true,
+    secret: process.env.SESSION_SECRET,
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.engine('ejs', require('ejs').__express)
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -48,6 +78,9 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/users/login',loginRouter);
+app.use('/users/signup',signupRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

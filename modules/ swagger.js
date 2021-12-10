@@ -4,7 +4,7 @@ const swaggereJsdoc = require('swagger-jsdoc');
 const options = {
     swaggerDefinition: {
         info: {
-            title: 'Test API',
+            title: 'InFrame API',
             version: '1.0.0',
             description: 'Test API with express',
         },
