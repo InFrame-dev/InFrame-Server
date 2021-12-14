@@ -3,7 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const { swaggerUi, specs } = require('./modules/ swagger');
+const swaggerUi = require('swagger-ui-express'),
+swaggerDocument = require('./swagger/ swagger.json');
 var session = require("express-session");
 var MySQLStore = require("express-mysql-session")(session);
 require("dotenv").config();
@@ -20,6 +21,8 @@ var signupRouter = require('./routes/signup');
 
 var app = express();
 app.use(express.urlencoded({ extended: true}));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 const port = 3000
 
@@ -73,7 +76,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 
 app.use('/', indexRouter);
