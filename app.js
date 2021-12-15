@@ -16,6 +16,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var signupRouter = require('./routes/signup');
+var mailRouter = require('./routes/mail');
+
 
 
 
@@ -24,7 +26,7 @@ app.use(express.urlencoded({ extended: true}));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
-const port = 3000
+const port = 8080
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -82,6 +84,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/users/login',loginRouter);
 app.use('/users/signup',signupRouter);
+app.use('/users/mail',mailRouter);
 
 
 // catch 404 and forward to error handler
@@ -93,7 +96,7 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = req.app.get('env') === 'test' ? err : {};
 
   // render the error page
   res.status(err.status || 500);
@@ -101,3 +104,4 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+

@@ -1,8 +1,8 @@
 {
     "openapi": "3.0.0",
     "info": {
-      "title": "InFrame API",
-      "description": "InFrame API",
+      "title": "test API",
+      "description": "InFrame test API",
       "version": "0.1.9"
     },
     "servers": [
@@ -27,6 +27,27 @@
               "description": "OK"
             }
           }
+        },"post":{
+          "tags":[
+            "login"
+          ],"parameters": [
+            {
+            "in": "body",
+              "name": "body",
+              "description": "Register",
+              "schema": {
+                "$ref": "#/definitions/login"
+                } 
+            }
+        ],
+        "responses": {
+            "201": {
+                "description": "Register Success"
+            },
+            "404": {
+                "description": "Failed. Bad Request"
+            }
+        }  
         }
       },"/users/signup": {
         "get": {
@@ -39,8 +60,103 @@
               "description": "OK"
             }
           }
+        },"post":{
+          "tags":[
+            "signup"
+          ],"parameters": [
+            {
+            "in": "body",
+              "name": "body",
+              "description": "Register",
+              "schema": {
+                "$ref": "#/definitions/signup"
+                } 
+            }
+        ],
+        "responses": {
+            "201": {
+                "description": "Register Success"
+            },
+            "404": {
+                "description": "Failed. Bad Request"
+            }
+        }  
         }
-      
-       }
+      },"/users/mail": {
+        "get": {
+          "tags": [
+            "mail"
+          ],
+          "summary": "Get all mail in system",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        },
+        "post":{
+          "tags":[
+            "mail"
+          ],"parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Register",
+              "schema": {
+                "$ref": "#/definitions/mail"
+                } 
+            }
+        ],
+        "responses": {
+            "201": {
+                "description": "Register Success"
+            },
+            "404": {
+                "description": "Failed. Bad Request"
+            }
+        }  
+  
+        }
+      }
+    },
+    "definitions":{
+      "user": {
+        "properties": {
+          "email" : {
+            "type": "string"
+          },
+          "password" : {
+            "type": "string"
+          },
+          "code" : {
+            "type": "string"
+          }
+        }
+      },"mail": {
+        "properties": {
+          "code" : {
+            "type": "string"
+          }
+        }
+      },"login": {
+        "properties": {
+          "email" : {
+            "type": "string"
+          },
+          "password" : {
+            "type": "string"
+          }
+        }
+      },
+      "signup": {
+        "properties": {
+          "email" : {
+            "type": "string"
+          },
+          "password" : {
+            "type": "string"
+          }
+        }
+      }
     }
   }
