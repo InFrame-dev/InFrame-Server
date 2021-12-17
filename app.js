@@ -17,6 +17,9 @@ var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var signupRouter = require('./routes/signup');
 var mailRouter = require('./routes/mail');
+var codeRouter = require('./routes/code');
+var findPasswordRouter = require('./routes/findPassword');
+var newPasswordRouter = require('./routes/newPassword');
 
 
 
@@ -85,6 +88,9 @@ app.use('/users', usersRouter);
 app.use('/users/login',loginRouter);
 app.use('/users/signup',signupRouter);
 app.use('/users/mail',mailRouter);
+app.use('/users/code',codeRouter);
+app.use('/users/findPassword',findPasswordRouter);
+app.use('/users/newPassword',newPasswordRouter);
 
 
 // catch 404 and forward to error handler

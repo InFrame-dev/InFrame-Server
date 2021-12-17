@@ -117,7 +117,112 @@
         }  
   
         }
-      }
+      },"/users/code": {
+        "get": {
+          "tags": [
+            "findPassword"
+          ],
+          "summary": "Get all code in system",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        },
+        "post":{
+          "tags":[
+            "findPassword"
+          ],"parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Register",
+              "schema": {
+                "$ref": "#/definitions/code"
+                } 
+            }
+        ],
+        "responses": {
+            "201": {
+                "description": "Register Success"
+            },
+            "404": {
+                "description": "Failed. Bad Request"
+            }
+        }  
+  
+        }
+        },"/users/findPassword": {
+            "get": {
+              "tags": [
+                "findPassword"
+              ],
+              "summary": "Get all findPassword in system",
+              "responses": {
+                "200": {
+                  "description": "OK"
+                }
+              }
+            },
+            "post":{
+              "tags":[
+                "findPassword"
+              ],"parameters": [
+                {
+                  "in": "body",
+                  "name": "body",
+                  "description": "Register",
+                  "schema": {
+                    "$ref": "#/definitions/findPassword"
+                    } 
+                }
+            ],
+            "responses": {
+                "201": {
+                    "description": "Register Success"
+                },
+                "404": {
+                    "description": "Failed. Bad Request"
+                }
+            }  
+      
+            }
+            },"/users/newPassword": {
+                "get": {
+                  "tags": [
+                    "findPassword"
+                  ],
+                  "summary": "Get all newPassword in system",
+                  "responses": {
+                    "200": {
+                      "description": "OK"
+                    }
+                  }
+                },
+                "post":{
+                  "tags":[
+                    "findPassword"
+                  ],"parameters": [
+                    {
+                      "in": "body",
+                      "name": "body",
+                      "description": "Register",
+                      "schema": {
+                        "$ref": "#/definitions/newPassword"
+                        } 
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Register Success"
+                    },
+                    "404": {
+                        "description": "Failed. Bad Request"
+                    }
+                }  
+          
+                }
+                }
     },
     "definitions":{
       "user": {
@@ -153,6 +258,27 @@
           "email" : {
             "type": "string"
           },
+          "password" : {
+            "type": "string"
+          }
+        }
+      },
+      "code": {
+        "properties": {
+          "code" : {
+            "type": "string"
+          }
+        }
+      },
+      "findPassword": {
+        "properties": {
+          "email" : {
+            "type": "string"
+          }
+        }
+      },
+      "newPassword": {
+        "properties": {
           "password" : {
             "type": "string"
           }
