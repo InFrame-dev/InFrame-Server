@@ -25,7 +25,7 @@ router.post("/login", async(req,res,next)=>{
     if(comparePassword){
       console.log("로그인 성공");
       req.session.email =data[0].email;
-      res.redirect("/");
+      // 메인 화면
     }else {
       res.send({ msg: "비밀번호가 잘못되었습니다." });
     }
