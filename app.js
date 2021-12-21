@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: true}));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
-const port = 8080
+const port = 3000
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
