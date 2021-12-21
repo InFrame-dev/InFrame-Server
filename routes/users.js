@@ -25,7 +25,7 @@ router.post("/login", async(req,res,next)=>{
     if(comparePassword){
       console.log("로그인 성공");
       req.session.email =data[0].email;
-      res.redirect("/");
+      // 메인 화면
     }else {
       res.send({ msg: "비밀번호가 잘못되었습니다." });
     }
@@ -80,9 +80,8 @@ router.post("/signup", async (req, res, next) => {
           console.log(error);
           return;
         }
-
         console.log(info);
-        console.log("send mail success!");
+        res.send({ msg : "send mail success!" });
       });
 
       const encryptedPassowrd = bcrypt.hashSync(req.body.password, 10);
@@ -91,14 +90,15 @@ router.post("/signup", async (req, res, next) => {
         password: encryptedPassowrd,
         code: number,
       });
-      console.log("회원가입 완료");
       //회원가입 완료후 토큰 생성
       req.session.email = user.email;
-      res.redirect("/");
+      // 인증 코드 입력화면으로 가기
     }
   } else {
     res.send({ msg: "불완전한 데이터" });
+    // 메인화면으로 돌아가기
   }
+
 });
 
 
@@ -114,11 +114,13 @@ router.post("/mail", async (req, res, next) => {
     });    
       if(req.body.code == data[0].code){
           console.log("회원가입 성공");
-          res.redirect("/");
+          res.send({ msg: "회원가입 성공" });
+          // 메인화면으로 가기 
       }else{
           
           console.log("코드가 잘못입력되었습니다");
-          //res.redirect("/mail");
+          res.send({ error: "코드가 잘못입력되었습니다" });
+          // 메인화면으로 가기 
       }
      
   } else {
@@ -175,8 +177,9 @@ router.post('/findPassword', async (req, res, next) => {
 
     console.log(info);
     console.log("send mail success!");
+    res.send({ msg: "send mail success!" });
+
   });
-  //res.redirect("/newpassword");
 });
 
 
@@ -192,11 +195,13 @@ router.post('/code', async (req, res, next) => {
     });    
       if(req.body.code == data[0].code){
         console.log("코드 확인 성공");
-          res.redirect("/");
-          //res.redirect("/newPassword");
+        res.send({ msg: "코드 확인 성공!" });
+        // 비밀번호 찾기 페이지 이동
+
       }else{
-          console.log("코드가 잘못입력되었습니다");
-          //res.redirect("/mail");
+        console.log("코드가 잘못입력되었습니다");
+        res.send({ error: "코드가 잘못입력되었습니다" });
+        // 메인 페이지로 이동
       }
   } else {
       res.send({ msg: "불완전한 데이터" });
@@ -213,11 +218,14 @@ router.post('/newPassword', async (req, res, next) => {
   .catch(err => {
      console.error(err);
   });
+  res.send({ msg: "비밀번호 변경 성공" });
+  // 메인화면으로 이동 
 });
 
 router.get('/logout', (req, res) => {
   req.session.destroy();
-  res.redirect("/");
+  res.send({ msg: "로그아웃" });
+  // 메인화면으로 이동
 })
 
 
