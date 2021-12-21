@@ -80,7 +80,6 @@ router.post("/signup", async (req, res, next) => {
           console.log(error);
           return;
         }
-
         console.log(info);
         console.log("send mail success!");
       });
@@ -94,7 +93,6 @@ router.post("/signup", async (req, res, next) => {
       console.log("회원가입 완료");
       //회원가입 완료후 토큰 생성
       req.session.email = user.email;
-      res.redirect("/");
     }
   } else {
     res.send({ msg: "불완전한 데이터" });
@@ -114,11 +112,9 @@ router.post("/mail", async (req, res, next) => {
     });    
       if(req.body.code == data[0].code){
           console.log("회원가입 성공");
-          res.redirect("/");
       }else{
           
           console.log("코드가 잘못입력되었습니다");
-          //res.redirect("/mail");
       }
      
   } else {
@@ -176,7 +172,6 @@ router.post('/findPassword', async (req, res, next) => {
     console.log(info);
     console.log("send mail success!");
   });
-  //res.redirect("/newpassword");
 });
 
 
@@ -193,10 +188,8 @@ router.post('/code', async (req, res, next) => {
       if(req.body.code == data[0].code){
         console.log("코드 확인 성공");
           res.redirect("/");
-          //res.redirect("/newPassword");
       }else{
           console.log("코드가 잘못입력되었습니다");
-          //res.redirect("/mail");
       }
   } else {
       res.send({ msg: "불완전한 데이터" });
@@ -217,7 +210,6 @@ router.post('/newPassword', async (req, res, next) => {
 
 router.get('/logout', (req, res) => {
   req.session.destroy();
-  res.redirect("/");
 })
 
 
