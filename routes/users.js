@@ -24,6 +24,7 @@ router.post("/login", async(req,res,next)=>{
     console.log(req.body.password);
     if(comparePassword){
       console.log("로그인 성공");
+      res.send({ msg: "로그인 성공" });
       req.session.email =data[0].email;
       // 메인 화면
     }else {
