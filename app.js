@@ -8,8 +8,11 @@ swaggerDocument = require('./swagger/ swagger.json');
 var session = require("express-session");
 var MySQLStore = require("express-mysql-session")(session);
 require("dotenv").config();
-
-
+const cors = require('cors');
+const corsOptions = {
+  origin: "http://3.36.238.0:3000/",
+  credentials: true
+}
 
 
 var indexRouter = require('./routes/index');
@@ -32,7 +35,8 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 const port = 3000
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.header("Access-Control-Allow-Origin", "*");
+  res.send('Hello!!')
 })
 
 app.listen(port, () => {
@@ -59,6 +63,8 @@ var options = {
 };
 
 var sessionStore = new MySQLStore(options);
+
+app.use(cors(corsOptions));
 
 app.use(
   session({
