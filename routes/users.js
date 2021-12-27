@@ -7,6 +7,7 @@ const { session } = require('passport');
 
 
 router.post("/login", async(req,res,next)=>{
+  res.header("Access-Control-Allow-Origin", "*");
   console.log(req.body);
   if(req.body.email && req.body.password){
     const data = await User.findAll({
@@ -36,6 +37,7 @@ router.post("/login", async(req,res,next)=>{
 });
 
 router.post("/signup", async (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
   console.log(req.body);
   if (
     req.body.email &&
@@ -104,6 +106,7 @@ router.post("/signup", async (req, res, next) => {
 
 
 router.post("/mail", async (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
   console.log(req.body);
   if (
       req.body.code 
@@ -131,6 +134,7 @@ router.post("/mail", async (req, res, next) => {
 
 
 router.post('/findPassword', async (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
   const email  = req.body.email;
   const data = await User.findAll({
     where: {
@@ -185,6 +189,7 @@ router.post('/findPassword', async (req, res, next) => {
 
 
 router.post('/code', async (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
   console.log(req.body);
   if (
       req.body.code 
@@ -210,6 +215,7 @@ router.post('/code', async (req, res, next) => {
 });
 
 router.post('/newPassword', async (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
   console.log(req.body);
   const encryptedPassowrd = bcrypt.hashSync(req.body.password, 10);
   User.update({password: encryptedPassowrd}, {where: {email: req.session.email}})
