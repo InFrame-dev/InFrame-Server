@@ -3,7 +3,8 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('confirm', { title: 'Express' });
-  });
+  res.header("Access-Control-Allow-Origin", "*");
+  res.render('confirm', { title: 'Express' });
+});
 
 module.exports = router;
