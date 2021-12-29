@@ -100,7 +100,7 @@ app.post('/signup', (req, res) => {
   const encryptedPassowrd = bcrypt.hashSync(password, 10);
   con.query('select * from users where email=?', [email], (err, data) => {
     console.log(data);
-    if (data.length == 0) {
+    if (data) {
       // 이메일 인증번호 보내기
       var generateRandom = function (min, max) {
         var ranNum = Math.floor(Math.random()*(max-min+1)) + min;
