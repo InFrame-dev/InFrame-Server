@@ -2,7 +2,7 @@ const path = require('path');
 const ejs = require('ejs');
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = 8080;
 var url = require('url');
 const session = require('express-session');
 const crypto = require('crypto');
@@ -99,7 +99,6 @@ app.post('/signup', (req, res) => {
 
   const encryptedPassowrd = bcrypt.hashSync(password, 10);
   con.query('select * from users where email=?', [email], (err, data) => {
-    console.log(data);
     if (data) {
       // 이메일 인증번호 보내기
       var generateRandom = function (min, max) {
